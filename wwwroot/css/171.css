@@ -1,0 +1,33 @@
+*{
+    
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body{
+    height: 100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fefefe;
+    overflow: hidden;
+}
+
+body::before,
+body::after{
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+body::before
+{
+    width: 30vh;
+    height: 300vh;
+    background-color: aquamarine;    
+}
+
+
