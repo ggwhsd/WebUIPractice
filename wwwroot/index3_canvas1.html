@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas的使用</title>
+</head>
+<body>
+    <canvas id = "drawing" width = "60" height= "100" style="border:1px solid #d3d3d3;">if you can see this , canvas is not supported</canvas>
+    <canvas id = "canvas1" width="100" height="100" style="border:1px solid red"></canvas>
+<canvas id="canvas2" width="200" height="200" style="border:1px solid blue"></canvas>
+<canvas id="canvas3" width="500" height="500" style="border:1px solid blue"></canvas>
+<canvas id="canvas4" width="100" height="100" style="border:1px solid blue"></canvas>
+<canvas id="canvas5" width="100" height="100" style="border:1px solid blue"></canvas>
+
+</body>
+<script>
+    var drawing = document.getElementById("drawing");
+//确定浏览器支持<canvas>元素
+if (drawing.getContext){
+    var context = drawing.getContext("2d");
+    //更多代码
+    /*
+    //取得图像的数据URI
+    var imgURI = drawing.toDataURL("image/png");
+    //显示图像
+    var image = document.createElement("img");
+    image.src = imgURI;
+    document.body.appendChild(image);*/
+    context.strokeStyle = "red";     //触笔颜色
+    context.lineWidth='3';
+    context.fillStyle = "#0000ff";   //填充绘画的颜色
+    width=50;
+    height = 50;
+    context.rect(10,10,width,height);context.stroke();
+}
+    var c = document.getElementById('canvas1');
+    var ctx = c.getContext("2d");
+    ctx.beginPath();
+    ctx.lineWidth="3";
+    ctx.strokeStyle="red";
+    ctx.rect(5,5,100,100);
+    ctx.stroke()
+//绘制红色矩形
+ctx.fillStyle = "#ff0000";
+ctx.fillRect(10, 10, 50, 50);
+
+//绘制半透明的蓝色矩形
+ctx.fillStyle = "rgba(0,0,255,0.5)";
+ctx.fillRect(50, 50, 60, 60);
+//绘制半透明的蓝色描边矩形
+ctx.strokeStyle = "rgba(0,0,255,0.5)";
+ctx.strokeRect(70, 70, 50, 50);
+
+var c2=document.getElementById("canvas2");
+var context2 = c2.getContext('2d');
+context2.rect(20,20,150,100)
+context2.fillStyle = "green";
+context2.fill();
+
+//线条
+var c3=document.getElementById("canvas3");
+var ctx3 = c3.getContext('2d');
+ctx3.beginPath();
+ctx3.moveTo(20,20);
+ctx3.lineTo(20,100);
+ctx3.lineTo(70,100);
+ctx3.strokeStyle = "green";
+ctx3.stroke();
+
+var c4 = document.getElementById("canvas4");
+var ctx4 = c4.getContext('2d');
+ctx4.beginPath();
+ctx4.moveTo(20,20);
+ctx4.lineTo(20,100);
+ctx4.lineTo(100,100);
+ctx4.closePath();
+ctx4.stroke();
+ctx4.fillStyle = "green";
+ctx4.fill();
+
+var c=document.getElementById("canvas5");
+var ctx=c.getContext("2d");
+ctx.beginPath();
+ctx.moveTo(20,20);
+ctx.quadraticCurveTo(20,100,200,20);
+ctx.stroke();
+
+https://www.jianshu.com/p/95367a6066d5
+</script>
+</html>
