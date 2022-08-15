@@ -12,6 +12,13 @@
 <canvas id="canvas3" width="500" height="500" style="border:1px solid blue"></canvas>
 <canvas id="canvas4" width="100" height="100" style="border:1px solid blue"></canvas>
 <canvas id="canvas5" width="100" height="100" style="border:1px solid blue"></canvas>
+<canvas id="canvas6" width="200" height="500" style="border:1px solid blue"></canvas>
+<canvas id="canvas7" width="200" height="500" style="border:1px solid blue"></canvas>
+<canvas id="canvas8" width="500" height="500" style="border:1px solid blue"></canvas>
+<canvas id="canvas9" width="200" height="200" style="border:1px solid blue"></canvas>
+<canvas id="canvas10" width="500" height="500" style="border:1px solid blue"></canvas>
+<canvas id="canvas11" width="500" height="500" style="border:1px solid blue"></canvas>
+<canvas id="canvas12" width="500" height="500" style="border:1px solid blue"></canvas>
 
 </body>
 <script>
@@ -78,7 +85,7 @@ ctx4.closePath();
 ctx4.stroke();
 ctx4.fillStyle = "green";
 ctx4.fill();
-
+// draw curve
 var c=document.getElementById("canvas5");
 var ctx=c.getContext("2d");
 ctx.beginPath();
@@ -86,6 +93,162 @@ ctx.moveTo(20,20);
 ctx.quadraticCurveTo(20,100,200,20);
 ctx.stroke();
 
-https://www.jianshu.com/p/95367a6066d5
+//draw curve
+var c=document.getElementById("canvas6");
+var ctx=c.getContext("2d");
+ctx.beginPath();
+ctx.moveTo(20,20);
+ctx.bezierCurveTo(20,100,200,100,200,20);
+ctx.stroke();
+
+//draw cicle
+var c=document.getElementById("canvas7");
+var ctx=c.getContext("2d");
+ctx.beginPath();
+ctx.arc(100,75,50,0,2*Math.PI);
+ctx.stroke();
+
+var canvas = document.getElementById("canvas8");
+if(canvas.getContext){  
+    var ctx = canvas.getContext("2d");  
+    ctx.moveTo(50, 50); 
+    //端点1
+    var p1 = {
+        x : 200,
+        y : 50
+    };
+    //端点2
+    var p2 = {
+        x : 200,
+        y : 100         
+    };
+    //绘制与当前端点、端点1、端点2三个点所形成的夹角的两边相切并且半径为50px的圆的一段弧线
+    ctx.arcTo(p1.x, p1.y, p2.x, p2.y, 50);
+    ctx.strokeStyle = "blue";
+    ctx.stroke();
+
+
+     
+
+   
+}
+var c=document.getElementById("canvas9");
+var ctx = c.getContext("2d");
+ctx.rect(10,10,100,100);
+//rect path is area， so 30，10 is in path
+    if(ctx.isPointInPath(30,10)){
+    ctx.stroke();
+    }
+    ctx.beginPath()
+    ctx.moveTo(10,30)
+    ctx.lineTo(110,30)
+    ctx.closePath()
+    //line just can be used in two end points
+    if(ctx.isPointInPath(110,30)==false)
+    {
+        ctx.stroke()
+    }
+
+    var c=document.getElementById("canvas8");
+    var ctx = c.getContext("2d");
+    ctx.font="30px Times new Roman";
+    ctx.fillStyle = "red"
+    //实心字体
+    ctx.fillText("Hello World!",10,50);
+    ctx.font="30px Times new Roman";
+ctx.strokeStyle = "blue";
+//空心字体
+ctx.strokeText("Hello World!",9,50);
+
+ctx.font="20px Arial";
+var txt="Hello World"
+ctx.textAlign="start";   
+ctx.fillText("width:" + ctx.measureText(txt).width,10,90);
+ctx.textAlign="center";    //"center|end|left|right|start";
+ctx.fillText(txt,10,110);
+
+var c=document.getElementById("canvas10");
+var ctx=c.getContext("2d");
+//所有之后的绘图也会被缩放。定位也会被缩放
+ctx.strokeRect(5,5,25,15);
+ctx.scale(2,2); //1=100%
+ctx.strokeRect(5,5,25,15);
+ctx.scale(2,2);
+ctx.strokeRect(5,5,25,15);
+ctx.scale(2,2);
+//ctx.clearRect(0,0,c.width,c.height)
+//rotate 20 degress
+ctx.rotate(20*Math.PI/180);
+ctx.strokeRect(10,10,25,15);
+ctx.scale(2,2);
+
+
+var c=document.getElementById("canvas11");
+var ctx = c.getContext("2d");
+
+ctx.beginPath();
+ctx.arc(150,75,70,0,2*Math.PI);
+ctx.stroke();
+
+ctx.moveTo(215,75);
+ctx.arc(150,75,65,0,2*Math.PI);
+//变换原点,将150，75变为0，0坐标
+ctx.translate(150,75);
+
+ctx.textBaseline = "middle";
+ctx.fillText('3',50,0);
+ctx.textAlign="center";  
+ctx.fillText('6',0,55);
+ctx.fillText('9',-50,0);
+ctx.fillText('12',0,-55);
+
+ctx.moveTo(0,0);
+ctx.lineTo(35,0);
+ctx.moveTo(0,0);
+ctx.lineTo(0,-50);
+
+ctx.stroke();
+var second = 1;
+var data = {
+
+  timeRefresh: function(){
+    this.second=this.second+1
+    if(this.second==60)
+        this.second=0;
+    var c=document.getElementById("canvas11");
+    var ctx = c.getContext("2d");
+  
+ctx.beginPath();
+ctx.clearRect(-150,-75,300,1300)
+ctx.arc(0,0,70,0,2*Math.PI);
+ctx.stroke();
+
+
+ctx.arc(0,0,65,0,2*Math.PI);
+//变换原点,将150，75变为0，0坐标
+//ctx.translate(150,75);
+
+ctx.textBaseline = "middle";
+ctx.fillText('3',50,0);
+ctx.textAlign="center";  
+ctx.fillText('6',0,55);
+ctx.fillText('9',-50,0);
+ctx.fillText('12',0,-55);
+
+    
+
+    ctx.moveTo(0,0)
+    ctx.rotate(second/60*Math.PI*2)
+    ctx.lineTo(0,50)
+
+    
+    ctx.stroke()
+    ctx.rotate(-second/60*Math.PI*2)
+    console.log(second)
+    setTimeout(data.timeRefresh,30);
+  }
+};
+setTimeout(data.timeRefresh,1000);
+//https://www.jianshu.com/p/95367a6066d5
 </script>
 </html>
