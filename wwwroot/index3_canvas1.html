@@ -18,8 +18,20 @@
 <canvas id="canvas9" width="200" height="200" style="border:1px solid blue"></canvas>
 <canvas id="canvas10" width="500" height="500" style="border:1px solid blue"></canvas>
 <canvas id="canvas11" width="500" height="500" style="border:1px solid blue"></canvas>
+<div>
 <canvas id="canvas12" width="500" height="500" style="border:1px solid blue"></canvas>
 
+<input type="button" id="draw" value="将图片画在canvas上"></input>
+<input type="button" id="draw2" value="将图片改变大小画出来"></input>
+<input type="button" id="draw3" value="将图片截取一小部分"></input>
+
+<img src="http://www.w3school.com.cn/i/eg_tulip.jpg" alt="tulip" id="tulip" style="margin-left:0px;" />
+</div>
+<div>
+<canvas id="canvas13" width="500" height="500" style="border:1px solid blue"></canvas>
+<label id="location" style='position:absolute;left:10px;'></label>
+
+</div>
 </body>
 <script>
     var drawing = document.getElementById("drawing");
@@ -244,11 +256,56 @@ ctx.fillText('12',0,-55);
     
     ctx.stroke()
     ctx.rotate(-second/60*Math.PI*2)
-    console.log(second)
+    //console.log(second)
     setTimeout(data.timeRefresh,30);
   }
 };
 setTimeout(data.timeRefresh,1000);
 //https://www.jianshu.com/p/95367a6066d5
+
+var btn = document.getElementById('draw')
+btn.addEventListener('click',function(e){
+
+    c=document.getElementById("canvas12");
+    ctx = c.getContext("2d");
+    img=document.getElementById("tulip");
+    ctx.drawImage(img,90,130);
+    //ctx.drawImage(img,90,130,90,80,20,20,90,80);  
+
+})
+btn = document.getElementById('draw2')
+btn.addEventListener('click',function(e){
+
+    c=document.getElementById("canvas12");
+    ctx = c.getContext("2d");
+    img=document.getElementById("tulip");
+    ctx.drawImage(img,1,1,50,50);
+    //ctx.drawImage(img,90,130,90,80,20,20,90,80);  
+
+})
+btn = document.getElementById('draw3')
+btn.addEventListener('click',function(e){
+
+    c=document.getElementById("canvas12");
+    ctx = c.getContext("2d");
+    ctx.clearRect(0,0,c.width,c.height)
+    img=document.getElementById("tulip");
+    //从图像的90，130的坐标位置开始截取80，20的区域，画到“20，20为起始点，90，80的区域上”
+    ctx.drawImage(img,90,130,90,80,20,20,90,80);  
+    ctx.drawImage(img,180,130,90,80,120,20,90,80);  
+
+})
+
+c = document.getElementById("canvas13")
+ctx=c.getContext('2d')
+ctx.font="30px Times new Roman";
+ctx.fillStyle = "red"
+ctx.fillText("坐标展示",100,100)
+c.addEventListener('mousemove',function(e){
+    c = document.getElementById("canvas13")
+var label=document.getElementById('location')
+label.innerText= e.offsetX +":"+e.offsetY+"--"+(e.clientX-c.getBoundingClientRect().x)+":"+(e.clientY-c.getBoundingClientRect().y)
+})
+
 </script>
 </html>
