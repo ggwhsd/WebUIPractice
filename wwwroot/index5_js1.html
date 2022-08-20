@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js基本语法</title>
+</head>
+
+<body>
+    <div id="content" style="border:1px solid blue">
+    <pre></pre>
+    </div>
+    <h1>行内式js</h1>
+    <input type="button" value="简单调用语句" onclick="alert('简单的调用语句')" />
+    <h1>调用函数</h1>
+    <input type="button" value="调用函数sayHi" onclick="sayHi" />
+    <h1>外部调用是通过 <p><script src=></script></p></h1>
+    <h1>作用域</h1>
+    <p>js只有全局和局部，function中的是局部，其他都是全局，没有块作用域，新版本中可能会有块作用域</p>
+
+</body>
+<script>
+    var div = document.getElementById('content')
+    msg = prompt("请输入一个数字：")
+    alert("内嵌式js:你输入的数字：" + msg);
+    
+    var str="hello world"
+    div.innerHTML+="javascript类型可以随意变换,str="+str+"<br/>"
+    str=1
+    str = str + 1
+    div.innerHTML+="javascript类型可以随意变换,str="+str+"<br/>"
+    div.innerHTML+="typeof判断类型"+(typeof str)+"<br/>"
+    var number = parseInt(str)
+    div.innerHTML+="parseInt(str)转换字符串为数字"+"<br/>"
+    number = parseFloat("101.1")
+
+    var arr = ['1','2','3','4']
+    sum = 0
+    for(var i = 0; i< arr.length; i++)
+    {
+        sum += parseInt(arr[i])
+    }
+    div.innerHTML+="数组+循环的使用求和="+sum+"<br/>"
+    
+    function sayHi(len){
+        result=''
+        for (var i = 1; i < len; i++) {
+            for (var j = i; j < len; j++) {
+                result = result + '★';
+            }
+            result = result + "<br/>";
+        }
+        div.innerHTML+="函数的使用<br/>"+result+"<br/>"
+    
+    }
+    sayHi(10)
+
+    function add2() {
+        sum = 0
+        for (var i = 0; i < arguments.length; i++) {
+            sum += arguments[i]
+        }
+        return sum
+    }
+    div.innerHTML+="可变参数的函数的使用<br/>"+add2(1, 3, 5, 7, 9)+"<br/>"
+    var fn1 = function() {
+        return "函数式表达式方式声明函数<br/>"
+    }
+    div.innerHTML+=fn1()
+
+    var obj = {
+        name: "刘备",
+        age: 18,
+        sex: '男',
+        sayHi: function() {
+            return (this.name + " hi ")
+        }
+    }
+    div.innerHTML+= "创建对象时创建属性和方法，对象.方法的使用："+obj.sayHi()
+    
+    var obj1 = new Object()
+    obj1.p1 = "p1"
+    obj1.sayHi = function() {
+        return (this.p1 + " hi")
+    }
+    div.innerHTML+= "空对象，也可以在创建对象之后，再添加属性、方法的使用："+obj1.sayHi()+"<br/>"
+    
+
+    //构造函数
+    function Person(name, age, sex) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+        this.sayHi = function() {
+            return ("吾乃【" + name + "】")
+        }
+    }
+    var obj2 = new Person("关羽", 20, '男')
+    var obj3 = new Person("张飞", 20, '男')
+    div.innerHTML+= "构造函数的使用："+obj1.sayHi()
+    div.innerHTML+= "对象属性名的获取"+"<br/>"
+    for (var k in obj2) {
+        div.innerHTML+= "属性:值  "+(k +":"+ obj2[k])+"<br/>" //输出属性名和值
+    }
+    
+ 
+    
+</script>
+<script src="js/my.js">
+    //外部js的示例
+</script>
+</html>
