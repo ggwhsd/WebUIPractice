@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom 和 bom的常用api、事件</title>
+</head>
+<style>
+
+ul,
+        p,
+        .box {
+            background-color: cadetblue;
+            border-color: crimson;
+            border-style: solid;
+            border-width: 1px;
+        }
+        
+        div {
+            height: 100px;
+            width: 500px;
+            background-color: pink;
+            margin: auto;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: -1px;
+            left: -16px;
+            width: 14px;
+            height: 14px;
+            border: 1px solid #ccc;
+            line-height: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            cursor: pointer;
+        }
+        
+        .message {
+            display: inline-block;
+            font-size: 12px;
+            color: blue;
+            background: url(imgs/lisha.jpg) no-repeat left center;
+            padding-left: 20px;
+        }
+        
+        .wrong {
+            color: red;
+        }
+        
+        .right {
+            color: greenyellow;
+        }
+        
+        table {
+            width: 800px;
+            margin: 100px auto;
+            text-align: center;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        
+        thead tr {
+            height: 30px;
+            background-color: skyblue;
+        }
+        
+        tbody tr {
+            height: 30%;
+        }
+        
+        tbody td {
+            border-bottom: 1px solid #d7d7d7;
+            font-size: 12px;
+            color: blue;
+        }
+        
+        .bg {
+            background-color: pink;
+        }
+</style>
+<body>
+    <div id='time'></div>
+    <input type="button" id='getTime' value="点击获取时间" />
+    
+    <ul>
+        <li> 1* </li>
+        <li> 2 * </li>
+        <li> 3 * </li>
+        <li> 4 * </li>
+        <li> 5 * </li>
+    </ul>
+    <div class="box"> 一个盒子 </div>
+    <div class="box"> 两个盒子 </div>
+    <div id='event'>点我可以触发我的点击事件哦</div>
+    <button id='changeImg'>切换图片</button>
+    <img src="res/duotone.png" alt='image' width="300px" height="500px" />
+    <button id='tianxieBtn'>填写内容</button>
+    <input type="text" id='tianxie' value="请输入内容" />
+    <div id='css'>js操作css的style</div>
+
+    <div>
+        <input type='password' class='ipt'>
+        <p class='message'>6-16密码</p>
+
+    </div>
+    <div id='chooseCssButton'>
+        <button>A</button><button>B</button><button>C</button><button>D</button>
+    </div>
+
+    <table>
+        <thead>
+            <th>X</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>a</td>
+            </tr>
+            <tr>
+                <td>b</td>
+            </tr>
+            <tr>
+                <td>c</td>
+            </tr>
+        </tbody>
+</body>
+<script>
+    window.onload=function (){
+        var time = document.getElementById('time')
+        console.dir(time) //显示对象的所有属性和方法等
+
+//获取某一标签名的标签列表
+        var lis = document.getElementsByTagName('li')
+        console.dir(lis)
+        console.log(lis[0])
+        for (var i = 0; i < lis.length; i++) {
+            console.log(lis[0])
+        }
+//根据class获取标签列表
+        var boxes = document.getElementsByClassName('box')
+        console.log(boxes)
+
+    //html5中提供了更为简便的方法，按照类
+        var boxes2 = document.querySelector(".box")
+        console.log(boxes2)
+        boxes2 = document.querySelectorAll(".box")
+        console.log(boxes2)
+            //按照id
+        time = document.querySelector("#time")
+        console.log(time)
+            //按照标签
+        lis = document.querySelector("li")
+        console.log(lis)
+        lis = document.querySelectorAll("li")
+        console.log(lis)
+
+        var bodyEle = document.body
+        console.log(bodyEle)
+//获取当前文档html文件内容
+        var htmlEle = document.documentElement;
+        console.log(htmlEle)
+
+        //--------------事件-----------------------
+        var div = document.querySelector('#event')
+        div.onclick = function() {
+            console.log('我被点击了')
+        }
+        //给按钮绑定点击事件
+        var btn = document.querySelector('#getTime')
+        btn.onclick = function() {
+            var divT = document.querySelector('#time')
+            divT.innerHTML = "<strong>" + (new Date()).toString() + "</strong>"
+        }
+        //图片随机切换
+        var img = document.querySelector('img')
+        btn = document.querySelector('#changeImg')
+        var imagsName = ['pugy', 'qiqiu', 'yinfu']
+
+        btn.onclick = function() {
+            rndChoice = Math.floor(Math.random() * 10) % 3
+            var filename = imagsName[rndChoice]
+            img.src = 'res/' + filename+ '.jpg'
+            img.alt = filename
+            img.title = filename
+        }
+
+        var tianxie = document.querySelector('#tianxie')
+        btn = document.querySelector('#tianxieBtn')
+        btn.onclick = function() {
+            tianxie.value = '被点击了' //表单的值需要通过value，其他标签可以通过innerText或者innerHtml
+                //this.disabled = true;
+            btn.disabled = true;
+        }
+        tianxie.onclick = function(){
+            btn.disabled = false;
+        }
+
+        div = document.querySelector('#css')
+        div.onclick = function() {
+                this.style.backgroundColor = 'purple'
+        }
+            //密码框验证
+            var ipt = document.querySelector('.ipt');
+        var message = document.querySelector('.message')
+        //失去焦点时触发
+        ipt.onblur = function() {
+            if (this.value.length < 6 || this.value.length > 16) {
+                message.className = 'message wrong'
+                message.innerHTML = '密码长度应该大于6小于等于16'
+            } else {
+                message.className = 'message right'
+                message.innerHTML = 'ok'
+            }
+        }
+        //为id=chooseCssButton下的所有按钮添加点击事件：修改所有按钮的样式
+        btn = document.querySelector('#chooseCssButton')
+        var btns = btn.querySelectorAll('button');
+        console.log(btns)
+        for (var j = 0; j < btns.length; j++) {
+            btns[j].onclick = function() {
+                for (var i = 0; i < btns.length; i++) {
+                    btns[i].style.backgroundColor = ''
+                }
+                this.style.backgroundColor = 'pink'
+            }
+        }
+        //为标签修改类名，这个更为实用，可以用于切换不同的样式类
+        //鼠标移入和移出事件
+        var trs = document.querySelector('tbody').querySelectorAll('tr')
+        for (var i = 0; i < trs.length; i++) {
+            trs[i].onmouseover = function() {
+                this.className = 'bg'
+            }
+            trs[i].onmouseout = function() {
+                this.className = ''
+            }
+        }
+
+        
+    }
+</script>
+</html>

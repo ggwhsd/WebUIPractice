@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义属性</title>
+</head>
+<style>
+    div {
+        border:1px solid blue;
+    }
+</style>
+<body>
+
+    <div id='demo' ><h2>默认属性</h2></div>
+    <div id='demo2' myIndex='1'>
+        <h2>自定义属性myIndex</h2>
+    </div>
+    <div id='h5demo' data-myIndex='data-1'>
+        <h2>h5支持的data</h2>
+    </div>
+</body>
+<script>
+    var div = document.querySelector('#demo')
+
+        div.innerHTML += '方式1属性值 element.id::' + div.id + '<br/>'
+       
+        div.innerHTML += '方式2属性值 element.getAttribute:' + div.getAttribute('id') + '<br/>'
+        //自定义属性，只能用方式2
+        var div = document.querySelector('#demo2')
+        div.getAttribute('myIndex')
+        div.innerHTML += '获取自定义属性:' + div.getAttribute('myIndex') + '<br/>'
+        div.setAttribute('myIndex', '2')
+        div.innerHTML += '获取自定义属性:' + div.getAttribute('myIndex') + '<br/>'
+        //div.removeAttribute('myIndex')
+
+        var div = document.querySelector('#h5demo')
+        document.querySelector('#h5demo').innerHTML += document.querySelector('#h5demo').getAttribute('data-myIndex')
+        //有的浏览器支持 console.log('h5新的获取自定义属性方式：' + document.querySelector('#h5demo').dataset.myIndex)
+</script>
+</html>
