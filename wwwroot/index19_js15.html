@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax-jquery</title>
+    <script src="./js/jquery.min.js"></script>
+</head>
+<body>
+    <h1 id="h01"></h1>
+    <div id="myDiv"><h2>通过 AJAX 改变文本</h2></div>
+25         <button id="testAjax" type="button">Ajax改变内容</button>
+<input id='testAjax2' type="button" value='ajax获取json格式返回'/>
+    <script>
+        function callback_documentload()
+        {
+            $('#h01').attr('style',"color:red").html('hello jquery');
+        }
+        $(document).ready(callback_documentload);
+
+        //按钮单击时执行
+       $("#testAjax").click(function(){
+              //Ajax调用处理
+             var html = $.ajax({
+               type: "POST",
+               url: "/demo/Api",
+               dataType: 'text',  
+               contentType : 'application/json',
+               data: JSON.stringify({
+                    "name":"aaa",
+                    "age":18
+               }),
+               success: function(result){
+                $("#myDiv").html('<h2>'+result+'</h2>');
+               },
+               error:function(xhr,errorText,errorType){
+                   alert(errorText)
+                   alert(errorType)
+                    alert(xhr.xx);
+                },
+               async: false
+
+             }).responseText;
+           //$("#myDiv").html('<h2>'+html+'</h2>');
+         });
+
+       //按钮单击时执行
+       $("#testAjax2").click(function(){
+              //Ajax调用处理
+             var html = $.ajax({
+               type: "POST",
+               url: "/demo/api/api2",
+               dataType: 'json',  
+               contentType : 'application/json',
+               data: JSON.stringify({
+                    "name":"aaa",
+                    "age":18
+               }),
+               success: function(result){
+                   //设置了dataType=json，所以会自动转换为json对象，可以直接通过对象属性访问
+                   //如果没有设置dataType=json，则可以通过JSON.parse(result)方式返回json对象。
+                $("#myDiv").html('<h2>'+result.result+'</h2>');
+               },
+               error:function(xhr,errorText,errorType){
+                   alert(errorText)
+                   alert(errorType)
+                    alert(xhr.xx);
+                },
+               async: false
+
+             }).responseText;
+           //$("#myDiv").html('<h2>'+html+'</h2>');
+         });
+    </script>
+
+</body>
+</html>
