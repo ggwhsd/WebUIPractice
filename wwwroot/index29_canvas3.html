@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas交互基础</title>
+</head>
+<body>
+    <canvas id="canvas" style="border:1px solid #aaa;display: block;margin: 50px auto;">
+    the current browser don't support canvas.
+    </canvas>
+<script>
+    var circles=[]
+    var canvas = document.querySelector('#canvas')
+    var context = canvas.getContext('2d')
+    window.onload=(onloadComplted)
+    function onloadComplted()
+    {
+        
+        canvas.width = 1200;
+        canvas.height =  800;       
+        //设置圆的半径
+        for(var i = 0; i<50;i++)
+        {
+            var r = Math.random()*50+20;
+            circle = {radius:r,
+                x:Math.random()*(canvas.width -2*r)+r,
+                y:Math.random()*(canvas.height - 2*r)+r,
+                color:'gray'
+                }
+            circles[i] =circle; 
+        }
+        canvas.addEventListener('mousemove',detect)
+        canvas.addEventListener('mouseup', changeCircleColor)
+        
+    }
+    function showEvent(e,ctx)
+    {
+        ctx.clearRect(1,85,300,16)
+        ctx.font="15px Times new Roman";
+        ctx.fillStyle = "red"
+        ctx.fillText("坐标展示 "+e.offsetX + ":" + e.offsetY,1,100)
+        
+    }
+    var selected = -1
+    function draw(x,y,ctx)
+    {
+        //清空画布
+        ctx.clearRect(0,0,ctx.width,  ctx.height)
+        //将所有球画好
+        selected = -1
+        for(var i = 0; i<circles.length; i++)
+        {
+            ctx.beginPath()
+            ctx.arc(circles[i].x, circles[i].y, circles[i].radius,0,2*Math.PI)
+            if(selected==-1 && ctx.isPointInPath(x,y))
+            {
+                selected = i
+            }
+            else
+            {
+                ctx.fillStyle=circles[i].color
+            }
+            ctx.fill()
+        }
+        if(selected>=0)
+        {
+            ctx.beginPath()
+            ctx.arc(circles[selected].x, circles[selected].y, circles[selected].radius,0,2*Math.PI)
+            ctx.fillStyle="red"
+            ctx.fill()
+        }
+    }
+    function detect(e){
+        
+        draw(e.offsetX,e.offsetY,context)
+        showEvent(e,context)
+    }
+
+    function changeCircleColor(e)
+    {
+        ctx = context
+        if(selected>=0)
+        {
+            ctx.beginPath()
+            ctx.arc(circles[selected].x, circles[selected].y, circles[selected].radius,0,2*Math.PI)
+            circles[selected].color="green"
+            ctx.fillStyle=circles[selected].color
+            ctx.fill()
+        }
+    }
+    function moveCircle(e)
+    {
+        ctx = context
+        if(selected>=0)
+        {
+            circles[selected].x = e.offsetX;
+            circles[selected].x = e.offsetY;
+            
+        }
+    }
+</script>
+</body>
+</html>
