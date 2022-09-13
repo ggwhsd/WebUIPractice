@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <style>
+        div {
+            height: 25vh;
+            width: 60vw;
+            margin: 0 auto;
+            background-color: #000000;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="typed-strings">
+        <p>Typed.js is a <strong>JavaScript</strong> library.</p>
+        <p>It <em>types</em> out sentences.</p>
+    </div>
+    <br/>
+    <div>
+        <span id="typed"></span>
+    </div>
+    <div>
+
+
+        <span id="typed2"></span>
+    </div>
+    <div>
+        <span id="type3"></span>
+    </div>
+    <div>
+        <span id="type4"></span>
+    </div>
+    <div style="color:yellow">
+        <span id="type5"></span>
+    </div>
+</body>
+<script>
+    //默认会输出内置的几句话
+    var typed = new Typed("#typed", {});
+
+    //按照我的设置来
+    var options = {
+        strings: ["嗨!^1000这里要等待1秒^1000然后这句话结束", "这是第二句话<br/>", "typeSpeed越小速度越快", "我喜欢吃上海菜", "我喜欢吃淮扬菜"], //输出的文字
+        typeSpeed: 50, //打字的速度,
+        smartBackspace: true, // 开启智能退格 默认false
+        cursorChar: '♡', //修改显示字符
+        backSpeed: 50, //后退速度
+        backDelay: 500, //后退延迟
+        loop: true, //是否循环
+        startDelay: 1000, //起始时间
+        fadeOut: true, //淡出效果
+    }
+    var typed2 = new Typed("#typed2", options);
+
+    var typed3 = new Typed('#type3', {
+        strings: ['git push --force ^1000\n `pushed to origin with option force`']
+    });
+
+    var typed4 = new Typed('#type4', {
+        stringsElement: '#typed-strings',
+        typeSpeed: 200, //打字的速度
+    });
+
+    var typed5 = new Typed('#type5', {
+        strings: ["hello<br/>^1000world<br/>^1000nice to see you<br/>^1000onComplete is invoked"],
+        typeSpeed: 50, //打字的速度
+        onComplete: function(e) {
+            alert(e.strings);
+
+            e.loop = true;
+
+
+        }
+    });
+</script>
+
+</html>

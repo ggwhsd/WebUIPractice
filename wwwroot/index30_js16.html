@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select name="voice" id="voices">
+        <option value="">select a voice</option>
+    </select>
+    <input type="text"></input>
+    <button id="play">点击播放</button>
+    <a href='https://blog.csdn.net/snsHL9db69ccu1aIKl9r/article/details/121942928' target="javascript:void(0)"> 参考 </a>
+    <script>
+        
+        var button = document.querySelector('#play')
+        var text = document.querySelector('input')
+        var voicesDropdonw = document.querySelector('[name="voice"]')
+        var utterThis = new window.SpeechSynthesisUtterance('张三，扫码成功！');
+        utterThis.rate = 1
+        //utterThis.pitch = 10
+        utterThis.text = '李四，扫码成功'
+        //utterThis.volume = 0.5
+        utterThis.lang = 'zh-CN'
+
+        utterThis.onstart = function(event) {
+            console.log('started to be spoken')
+        }
+
+
+        const synth = window.speechSynthesis
+        function getSupportVoices(){
+            voices=synth.getVoices()
+            voices.forEach(e=>{
+                
+                    const option = document.createElement('option')
+                    option.value = e.lang
+                    console.log(e.lang)
+                    option.text = e.name
+                    if(e.name.indexOf('Google')==-1)
+                        voicesDropdonw.appendChild(option)
+            })
+        }
+        voicesDropdonw.addEventListener('change',function(){
+            var idx = voicesDropdonw.selectedIndex
+            var value = voicesDropdonw.options[idx].value
+            utterThis.lang = value
+        }
+        )
+        utterThis.lang = 'zh-CN'
+        synth.cancel()
+        synth.speak(utterThis);
+        synth.addEventListener('voiceschanged',getSupportVoices)
+        button.addEventListener('click',function()
+        {
+            utterThis.text = text.value
+            synth.speak(utterThis);
+        })
+        if('speechSynthesis' in window)
+        {
+
+        }
+        else
+        {
+            console.log('not supported')
+        }
+    </script>
+</body>
+</html>

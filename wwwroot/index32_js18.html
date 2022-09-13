@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滑动切换区块</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.multiscroll.css"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/multiscroll.js/0.2.3/jquery.multiscroll.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/multiscroll.js/0.2.3/jquery.multiscroll.min.css"></script>
+  
+</head>
+<body>
+    <div id="multiscroll">
+        <div  class="ms-left"  >
+            <div class="ms-section active" style="background-color:red;">Some section1-1</div>
+            <div class="ms-section" style="background-color:yellow;">Some section1-2</div>
+            <div class="ms-section" style="background-color:green;">Some section1-3</div>
+        </div>
+        <div class="ms-right">
+            <div class="ms-section active" style="background-color:red;">Some section2-1</div>
+            <div class="ms-section" style="background-color:yellow;">Some section2-2</div>
+            <div class="ms-section" style="background-color:green;">Some section2-3</div>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function() {
+	$('#multiscroll').multiscroll({
+		verticalCentered : true,
+		scrollingSpeed: 700,
+		easing: 'easeInQuart',
+		easingcss3: 'ease-out',
+		menu: false,
+		sectionsColor: [],
+		navigation: false,
+		navigationPosition: 'right',
+		navigationColor: '#000',
+		navigationTooltips: [],
+		loopBottom: false,
+		loopTop: false,
+		css3: false,
+		paddingTop: 0,
+		paddingBottom: 0,
+		normalScrollElements: null,
+		scrollOverflow: false,
+		scrollOverflowOptions: null,
+		keyboardScrolling: true,
+		touchSensitivity: 5,
+
+		//responsive
+		responsiveWidth: 0,
+		responsiveHeight: 0,
+		responsiveExpand: false,
+
+		// Custom selectors
+		sectionSelector: '.ms-section',
+		leftSelector: '.ms-left',
+		rightSelector: '.ms-right',
+
+		//events
+		onLeave: function(index, nextIndex, direction){},
+		afterLoad: function(anchorLink, index){},
+		afterRender: function(){},
+		afterResize: function(){},
+	});
+});
+</script>
+</html>
