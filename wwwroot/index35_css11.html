@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动画</title>
+</head>
+<style>
+    body {
+        background-color: #ddd;
+    }
+    .des {
+        position:absolute;
+        top: 10px;
+        left: 10px;
+        height: 100px;
+        width: 50%px;
+        text-align: center;
+       
+    }
+    span {
+        display: block;
+        height: 100px;
+        width: 300px;
+        text-align: center;
+        line-height: 100px;
+        font-size: 48px;
+        margin: 150px auto;
+        border-bottom: 1px solid #00a4ff;
+    }
+    
+    .bg1 {
+        position: absolute;
+        bottom: 0px;
+        height: 300px;
+        width: 100%;
+        background: url(res/bearbg1.png) repeat-x;
+        animation: change_bg 5s linear infinite;
+    }
+    
+    .bg2 {
+        position: absolute;
+        bottom: 0px;
+        height: 300px;
+        width: 100%;
+        z-index: 1;
+        background: url(res/bearbg2.png) repeat-x;
+        animation: change_bg 5s linear infinite;
+    }
+    
+    .img {
+        position: fixed;
+        bottom: 10px;
+        height: 100px;
+        width: 200px;
+        z-index: 2;
+        background: url(res/bear.png);
+        animation: bear .4s steps(8) infinite, change_pos 10s forwards;
+    }
+    
+    @keyframes bear {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: -1600px 0;
+        }
+    }
+    
+    @keyframes change_pos {
+        0% {
+            left: 0;
+        }
+        100% {
+            left: 90%;
+            transform: translate(-50%, 0);
+        }
+    }
+    
+    @keyframes change_bg {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: -3840px 0;
+        }
+    }
+</style>
+
+<body>
+    <span>
+        奔跑的北极熊
+    </span>
+
+    <div>
+        <div class='des'>
+            animation: change_bg 5s linear infinite; 
+            变换帧是change_bg，change_bg定义了开始和结束时涉及到的变化变量值。
+            5s，表示变换帧完成从开始到结束的时间设定为5秒。
+            linear，表示5秒是线性变化的。
+            infinite表示循环以上动画效果。
+
+
+        </div>
+        <div class='des'>
+
+        </div>
+</div>
+    <div class="bg1"></div>
+    <div class="bg2"></div>
+    <div class="img"></div>
+
+</body>
+
+</html>

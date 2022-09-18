@@ -16,10 +16,10 @@
             transform: translate(1000px, 0);
         }
         50% {
-            transform: translate(1000px, 300px);
+            transform: translate(1000px, -300px);
         }
         75% {
-            transform: translate(0px, 300px);
+            transform: translate(0px, -300px);
         }
         100% {
             transform: translate(0, 0);
@@ -31,11 +31,12 @@
         height: 100px;
         background-color: skyblue;
         animation-name: move;
-        animation-duration: 2s;
+        animation-duration: 20s;
     }
 </style>
 
 <body>
+    <div> transform: translate(1000px, 0); 表示参照当前标签自身的位置进行偏移，偏移X轴1000px，Y轴不偏移</div>
     <div>
         <video width="500px" controls height="400px" type="video/mp4" src="https://gameplus-platform.cdn.bcebos.com/gameplus-platform/upload/file/source/51441df5c98050a1fe47c553c32c1b16.mp4"></video>
     </div>
