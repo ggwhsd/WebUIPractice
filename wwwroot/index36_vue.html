@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="./js/vue.min.js"></script>
+<title>首页</title>
+<style>
+    div {
+        border:1px solid green;
+        width: auto;
+        height: auto;
+        margin: 10px auto;
+    }
+</style>
+</head>
+<body>
+<p>欢迎重新进入web的世界，你已经来开很久了。</p>
+
+<div id="app">
+  <p>{{ message }}</p>
+  <p>{{ message2 }}</p>
+  <p>{{ message3 }}</p>
+</div>
+
+<div id="dataVariable">
+    <h1>访问site : {{site}}</h1>
+    <h1>访问url : {{url}}</h1>
+    <h1>调用方法details： {{details()}}</h1>
+    <h1>count:{{count}}</h1>
+</div>
+
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue.js!',
+    message2: '这个例子只是单方向绑定，vue.data -> html.tag的{{ message }}',
+    message3:'vue 通过传入标签id以及数据变量，从而底层调用js基础api进行绑定'
+  }
+})
+
+var vue2 = new Vue({
+    el: '#dataVariable',
+  data: {
+    site: "属性site：localhost",
+    url: "属性url：localhost:8080",
+    alexa: "属性alexa排名：1",
+    count:1
+  },
+  methods: {
+        details: function() {
+            
+            this.site= "127.0.0.1"//这里会动态修改页面上的标签中的内容
+            return  this.site + " vue的绑定方法，方法名为details";
+        }
+    }
+})
+
+document.write("<br>访问vue的自带属性，通过vue.$el访问绑定的标签 <br>")
+document.write(vue2.$el === document.getElementById('dataVariable')) // true
+document.write("<br>访问vue的自定义属性 <br>")
+document.write(vue2.site) // true
+document.write(vue2.$data.site) // true
+document.write(vue2.details()) // true
+
+
+</script>
+
+</body>
+</html>
