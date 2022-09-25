@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.min.js"></script>
+</head>
+<body>
+    
+<h1>声明试渲染</h1>
+
+<div id="app">
+    {{ message }}
+  </div>
+
+
+  <div id="app-2">
+    <span v-bind:title="message">
+      鼠标悬停几秒钟查看此处动态绑定的提示信息！v-bind是vue，表示绑定span的title属性到vue的message。 
+    </span>
+  </div>
+
+  <h1>vue条件逻辑，因为有了数据变量，就一定需要逻辑判断</h1>
+
+  <div id="app-3">
+    <p v-if="seen == true">seen为true，现在你看到我了</p>
+     <p v-else-if="seen == false">seen 为false，现在你看到我了</p>
+     <p v-else-if="seen == 'none'">seen 为none，现在你看到我了</p>
+     <p v-else>seen 为其他，现在你看到我了</p>
+     <h1 v-show="seen=='show'">v-if：单词切换开销较大。  v-show:初次渲染开销高，每次都会渲染，对于频繁渲染使用它，如果很少变化数据，则使用v-if。</h1>
+  </div>
+
+  
+<h1>循环</h1>
+<div id="app-4">
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+  
+  <ul id="app-4">
+  <li v-for="(todo, index) in todos">
+    {{ parentMessage }} - {{ index }} - {{ todo.text }}
+  </li>
+</ul>
+
+<div>
+  <span v-for="n in 10">{{ n }} </span>
+</div>
+</div>
+
+
+<h1>处理用户输入,添加事件函数</h1>
+
+<div id="app-5">
+  <p>{{ message }}</p>
+  <button v-on:click="reverseMessage">反转消息</button>
+  
+
+  <button v-on:click="counter += 1">Add 1</button>
+  <p>The button above has been clicked {{ counter }} times.</p>
+
+  <h1>双向绑定</h1>
+<div id="app-6">
+  <p>{{ message }}</p>
+  <input v-model="message" type="text" />
+</div>
+
+</div>
+
+  <script>
+      //多个例子，每个例子说明不同的功能
+
+    var mydata = {message:"hello world，when you see this，vue is working well"} //create object
+      //例子1只是说明数据变量变化 -> 标签中的对应数据变化
+    var app = new Vue({
+        el: '#app',
+        data:  mydata
+        })
+    setTimeout(function(){
+        mydata.message = "it is changed first time now."
+    },5000)
+
+    //例子2 说明数据变脸变化 -> 标签中的属性值变化，通过v-bind属性绑定
+    var app2 = new Vue({
+		  el: '#app-2',
+		  data:  mydata
+		  
+		})
+     //例子3 说明了变量和if逻辑的组合应用，对于数据进行分支判断，这个功能吧，我觉得没啥太大使用场景，因为数据实际上都是后台提供的，所以直接显示或者简单样式修改就可以。
+        var app3 = new Vue({
+	  el: '#app-3',
+	  data: {
+	    seen: true
+	  }
+	})
+    
+// 例子4 循环显示一个数组的数据，我觉得这个用处较大，后台返回数据集合的时候，通过这个功能就很方便显示数据。
+    var app4 = new Vue({
+	  el: '#app-4',
+	  data: {
+		parentMessage: "parentProperty",  
+	    todos: [
+	      { text: '学习 JavaScript' },
+	      { text: '学习 Vue' },
+	      { text: '学习 springboot' },
+	      { text: '整个牛项目' }
+	    ]
+	  }
+	})
+    //例子5，之前的例子都是数据变量和标签的绑定，这个例子是处理函数与事件的绑定。
+    var app5 = new Vue({
+	  el: '#app-5',
+	  data: {
+	    message: 'Hello Vue.js!',
+	    counter: 0
+	  },
+	  methods: {
+	    reverseMessage: function () {
+          this.counter +=1
+	      this.message = this.message.split('').reverse().join('')
+	    }
+	  }
+	})
+
+    //例子6 通过v-model将标签值与数据进行绑定，
+var app6 = new Vue({
+	  el: '#app-6',
+	  data: {
+	    message: 'Hello Vue!',
+        counter:1
+	  }
+	})
+    
+
+
+    
+  </script>
+</body>
+</html>
