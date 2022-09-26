@@ -61,14 +61,15 @@
 
   <button v-on:click="counter += 1">Add 1</button>
   <p>The button above has been clicked {{ counter }} times.</p>
-
+</div>
   <h1>双向绑定</h1>
 <div id="app-6">
   <p>{{ message }}</p>
   <input v-model="message" type="text" />
+  <input type="button" v-on:click='message="click"' v-bind:value='buttonName'/>
 </div>
 
-</div>
+
 
   <script>
       //多个例子，每个例子说明不同的功能
@@ -130,7 +131,8 @@ var app6 = new Vue({
 	  el: '#app-6',
 	  data: {
 	    message: 'Hello Vue!',
-        counter:1
+        counter:1,
+        buttonName:'按下改变内容'
 	  }
 	})
     
