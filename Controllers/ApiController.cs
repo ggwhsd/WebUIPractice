@@ -26,4 +26,9 @@ public class ApiController : ControllerBase
     {
         return req;
     }
+[HttpGet("questionApi")]
+    public QuestionAnswer Get()
+    {
+        return new QuestionAnswer{ answer="yes",forced=true };
+    }
 }
