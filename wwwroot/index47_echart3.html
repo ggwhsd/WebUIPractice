@@ -70,7 +70,19 @@ option = {
     xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: date
+        data: date,
+        axisPointer:{
+                label: {
+                    //每个序列都可以自定义显示内容，最后会汇聚到一起显示
+          formatter: function (params) {
+            return (
+              '自定义描述  ' +
+              params.value +
+              (params.seriesData.length ? '：' + params.seriesData[0].data : '')
+            );
+          }
+        }
+            }
     },
     yAxis: {
         boundaryGap: [0, '50%'],
@@ -86,9 +98,32 @@ option = {
             areaStyle: {
                 normal: {}
             },
-            data: data
+            data: data,
+            
         }
-    ]
+    ],
+    //鼠标滑过显示鼠标所在位置的值
+    tooltip:{
+        trigger:'axis',
+        axisPointer:{
+            type:"cross",
+        }
+        /*
+        axisPointer:{
+            type:"cross",
+            label:{
+                background:'#6a7985'
+            }
+        },
+        //此处也可以自定义，但是这个自定义需要自己定义显示的html格式
+        formatter: function(params){
+            console.log(""+params+"万")
+            console.log(params[0].seriesName)
+            console.log(params[0].value)
+            console.log(params[0].axisValue)
+            return "<h5>"+params[0].value+":"+params[0].axisValue+"</h5>"
+        }*/
+    }
 };
 
 setInterval(function () {
