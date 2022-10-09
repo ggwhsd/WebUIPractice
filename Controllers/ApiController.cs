@@ -47,4 +47,18 @@ public class ApiController : ControllerBase
        
         return new Data1{ xAxis=xAxis1, data=data1};
     }
+    [HttpGet("data2Api")]
+    public List<Data2> Get3()
+    {
+        List<Data2> data = new List<Data2>();
+        for(int i = 1;i<100;i++)
+        {
+            Data2 d = new Data2();
+            d.id=i;
+            d.name=$"Item {i}";
+            d.price=i;
+            data.Add(d);
+        }
+        return data;
+    }
 }
